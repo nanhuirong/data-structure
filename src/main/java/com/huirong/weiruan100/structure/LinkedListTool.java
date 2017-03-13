@@ -1,6 +1,6 @@
 package com.huirong.weiruan100.structure;
 
-import weiruan100.tool.Node;
+import com.huirong.weiruan100.tool.Node;
 
 /**
  * Created by nanhuirong on 16-8-29.

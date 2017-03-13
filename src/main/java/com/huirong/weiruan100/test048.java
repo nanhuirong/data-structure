@@ -1,6 +1,6 @@
 package com.huirong.weiruan100;
 
-import weiruan100.structure.ArrayTool;
+import com.huirong.weiruan100.structure.ArrayTool;
 
 /**
  * Created by nanhuirong on 16-9-2.

@@ -2,7 +2,7 @@ package com.huirong.weiruan100.structure;
 
 
 import sun.reflect.generics.tree.Tree;
-import weiruan100.tool.TreeNode;
+import com.huirong.weiruan100.tool.TreeNode;
 
 import java.util.LinkedList;
 import java.util.List;

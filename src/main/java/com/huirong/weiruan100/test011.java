@@ -1,6 +1,6 @@
 package com.huirong.weiruan100;
 
-import weiruan100.tool.TreeNode;
+import com.huirong.weiruan100.tool.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;

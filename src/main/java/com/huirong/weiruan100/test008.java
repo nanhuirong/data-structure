@@ -1,7 +1,7 @@
 package com.huirong.weiruan100;
 
 
-import weiruan100.tool.Node;
+import com.huirong.weiruan100.tool.Node;
 
 import java.util.Arrays;
 
