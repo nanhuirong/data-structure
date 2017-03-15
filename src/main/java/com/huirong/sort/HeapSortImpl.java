@@ -6,9 +6,16 @@ import java.util.Random;
 
 /**
  * Created by huirong on 17-3-12.
+ * 作为一个优秀的算法,快速排序的性能一般优于堆排序
+ * 堆的常见应用, 作为一个优先队列:最大优先队列和最小优先队列
  */
 public class HeapSortImpl<E> {
     private final Comparator<? super E> comparator;
+
+    public Comparator<? super E> getComparator() {
+        return comparator;
+    }
+
     public HeapSortImpl(Comparator<? super E> comparator) {
         this.comparator = comparator;
     }
@@ -25,7 +32,7 @@ public class HeapSortImpl<E> {
         }
     }
 
-    private void swap(E[] array, int srcInsex, int destIndex){
+    public void swap(E[] array, int srcInsex, int destIndex){
         E temp = array[srcInsex];
         array[srcInsex] = array[destIndex];
         array[destIndex] = temp;
@@ -43,7 +50,7 @@ public class HeapSortImpl<E> {
     }
 
     //调整, 大顶堆O(logn)
-    private void maxHeapIfy(E[] array, int index, int heapSize){
+    public void maxHeapIfy(E[] array, int index, int heapSize){
         int left = getLeft(index);
         int right = getRight(index);
         int largest = index;
@@ -61,18 +68,19 @@ public class HeapSortImpl<E> {
     }
 
     //获取左节点
-    private int getLeft(int index){
+    public int getLeft(int index){
         return 2 * index + 1;
     }
 
     //获取右节点
-    private int getRight(int index){
+    public int getRight(int index){
         return 2 * index + 2;
     }
 
     //获取父节点
-    private int getParent(int index){
-        return (int)Math.ceil(index / 2.0) - 1;
+    public int getParent(int index){
+        int result = (int)Math.ceil(index / 2.0) - 1;
+        return result < 0 ? 0 : result;
     }
 
     public static void main(String[] args) {
