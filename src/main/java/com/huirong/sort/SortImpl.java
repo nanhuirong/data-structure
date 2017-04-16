@@ -184,15 +184,55 @@ public class SortImpl <E>{
      * @param array
      */
     public void quickSort(List<E> array){
-        quickSort(array, 0, array.size() - 1);
+        quickSort(array, 0,
+                array.size() - 1,
+                false,
+                false, 0);
     }
 
-    private void quickSort(List<E> array, int start, int end){
+    public void quickSort(List<E> array, boolean isRandom){
+        quickSort(array, 0, array.size() - 1, isRandom, false, 0);
+    }
+
+    public void quickSort(List<E> array, boolean isRandom,boolean isMiddle){
+        quickSort(array, 0, array.size() - 1, false, isMiddle, 0);
+    }
+
+    public void quickSort(List<E> array, boolean isRandom, boolean isMiddle, int k){
+        quickSort(array, 0, array.size() - 1, isRandom, isMiddle, k);
+    }
+
+    /**
+     * @param array
+     * @param start
+     * @param end
+     * @param isRandom 是否采用随机优化
+     * @param isMiddle  是否采用随机中位数优化
+     * @param k 采取插入排序的阈值
+     */
+
+    private void quickSort(List<E> array, int start, int end, boolean isRandom, boolean isMiddle, int k){
         if (start < end){
             //选取枢轴元素
-            int partition = partition(array, start, end);
-            quickSort(array, start, partition - 1);
-            quickSort(array, partition + 1, end);
+            int partition;
+            if (isRandom){
+                partition = randomPartition(array, start, end);
+            }else if (isMiddle){
+                partition = middlePartition(array, start, end);
+            }else {
+                partition = partition(array, start, end);
+            }
+            int leftLen = partition - start, rightLen = end - partition;
+            if (leftLen < k){
+                insertSort1(array, start, leftLen);
+            }else {
+                quickSort(array, start, partition - 1, isRandom, isMiddle, k);
+            }
+            if (rightLen < k){
+                insertSort1(array, partition + 1, rightLen);
+            }else {
+                quickSort(array, partition + 1, end, isRandom, isMiddle, k);
+            }
         }
     }
 
@@ -218,6 +258,35 @@ public class SortImpl <E>{
         array.set(left, elem);
         return left;
     }
+    //随机选取主元
+    private int randomPartition(List<E> array, int start, int end){
+        int randomIndex = Integer.MAX_VALUE;
+        int len = end - start + 1;
+        randomIndex = (int)(random.nextDouble() * len) + start;
+        swap(array, start, randomIndex);
+        return partition(array, start, end);
+    }
+    //三个随机数中选择中位数
+    private int middlePartition(List<E> array, int start, int end){
+        if (end - start + 1 < 3){
+            return partition(array, start, end);
+        }else {
+            int len = end - start + 1;
+            int first = (int)(random.nextDouble() * (len)) + start,
+                    second =(int)(random.nextDouble() * (len)) + start,
+                    third = (int)(random.nextDouble() * (len)) + start;
+            second = order(array.get(first), array.get(second)) ? first : second;
+            if (order(array.get(second), array.get(third))){
+                second = order(array.get(third), array.get(first)) ? third : first;
+            }
+            swap(array, start, second);
+            return partition(array, start, end);
+        }
+    }
+
+    //当数据几乎有序时, 插入排序很快,
+    // 当快速排序的长度小于k时,不做任何排序并返回, 并在排序排序结束时调用插入排序O(nk + nlg(n/k))
+
 
     private int getLeft(int index){
         return index * 2 + 1;

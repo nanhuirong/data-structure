@@ -14,16 +14,16 @@ public class SortTest {
         Comparator comparator = new IntegerComparator();
         SortImpl sort = new SortImpl(comparator);
 
-        List array = test.generator(10);
-        sort.quickSort(array);
-        System.out.print(array);
+//        List array = test.generator(1000000);
+//        sort.quickSort(array, false, true);
+//        System.out.print(array);
 //        long start = System.currentTimeMillis();
 //        System.out.println(array);
 ////        sort.mergeSort(array);
 //        sort.heapSort(array);
 //        long end = System.currentTimeMillis();
 //        System.out.println((end - start) / 1000 + "s," + array);
-//        test.test(50000000, 3);
+        test.test(50000000, 3);
     }
 
     public void test(int number, int iteration){
@@ -34,13 +34,13 @@ public class SortTest {
         for (int i = 0; i < iteration; i++){
             long start;
             long end;
-//            //测试插入排序
+            //测试插入排序
 //            start = System.currentTimeMillis();
 //            array = test.generator(number);
 //            sort.insertSort(array);
 //            end = System.currentTimeMillis();
 //            System.out.println("插入排序" + array.size() + " " + (end - start)/ 1000 + "s");
-//            //测试冒泡排序
+            //测试冒泡排序
 //            array = test.generator(number);
 //            start = System.currentTimeMillis();
 //            sort.bubbleSort(array);
@@ -64,6 +64,30 @@ public class SortTest {
             sort.heapSort(array);
             end = System.currentTimeMillis();
             System.out.println("堆排序" + array.size() + " " + (end - start)/ 1000 + "s");
+            //测试快速排序
+            array = test.generator(number);
+            start = System.currentTimeMillis();
+            sort.quickSort(array);
+            end = System.currentTimeMillis();
+            System.out.println("快速排序" + array.size() + " " + (end - start)/ 1000 + "s");
+            //测试随机化版本的快速排序
+            array = test.generator(number);
+            start = System.currentTimeMillis();
+            sort.quickSort(array, true);
+            end = System.currentTimeMillis();
+            System.out.println("随机化版本快速排序" + array.size() + " " + (end - start)/ 1000 + "s");
+            //测试随机化中卫数版本快速排序
+            array = test.generator(number);
+            start = System.currentTimeMillis();
+            sort.quickSort(array, false, true);
+            end = System.currentTimeMillis();
+            System.out.println("随机化中位数快速排序" + array.size() + " " + (end - start)/ 1000 + "s");
+            //测试插入版本的快速排序
+            array = test.generator(number);
+            start = System.currentTimeMillis();
+            sort.quickSort(array, false, false, 100);
+            end = System.currentTimeMillis();
+            System.out.println("插入版本快速排序" + array.size() + " " + (end - start)/ 1000 + "s");
         }
 
     }

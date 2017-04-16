@@ -71,4 +71,56 @@ public class Algorithm<E> {
         return count;
     }
 
+    /**
+     * 在O（n）的时间复杂度内寻找第k小的数, 选择排序的变种
+     * @param array
+     * @param k
+     * @return
+     */
+    public E randomSelect(List<E> array, int k){
+        return randomSelect(array, 0, array.size() - 1, k);
+    }
+
+    private E randomSelect(List<E> array, int start, int end, int k){
+        if (start == end){
+            return array.get(start);
+        }
+        int p = randomPartition(array, start, end);
+        int leftLen = p - start + 1;
+        if (k == leftLen){
+            return array.get(p);
+        }else if (k < leftLen){
+            return randomSelect(array, start, p - 1, k);
+        }else {
+            return randomSelect(array, p + 1, end, k - leftLen);
+        }
+    }
+
+    private int randomPartition(List<E> array, int start, int end){
+        E elem = array.get(start);
+        int left = start, right = end;
+        while (left < right){
+            while (order(array.get(right), elem)){
+                right--;
+            }
+            if (left < right){
+                array.set(left++, array.get(right));
+                while (left < right && order(elem, array.get(left))){
+                    left++;
+                }
+                if (left < right){
+                    array.set(right--, array.get(left));
+                }
+            }
+        }
+        array.set(left, elem);
+        return left;
+    }
+
+    private void swap(List<E> array, int index1, int index2){
+        E elem = array.get(index1);
+        array.set(index1, array.get(index2));
+        array.set(index2, elem);
+    }
+
 }

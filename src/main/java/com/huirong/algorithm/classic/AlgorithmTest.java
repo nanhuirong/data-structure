@@ -12,29 +12,33 @@ public class AlgorithmTest {
     public static void main(String[] args) {
         Comparator comparator = new IntegerComparator();
         AlgorithmTest test = new AlgorithmTest();
-//        List array = test.generator(5);
-//        System.out.println(array);
+        Algorithm algorithm = new Algorithm(comparator);
+        List array = test.generator(6);
+        System.out.println(array);
+        System.out.print(algorithm.randomSelect(array, (array.size() + 1) >> 1));
+
 
 //        Algorithm algorithm = new Algorithm(comparator);
 //        int pairs = algorithm.getInversion(array);
-        List<Integer>array = new ArrayList<Integer>();
-        array.add(13);
-        array.add(-3);
-        array.add(-25);
-        array.add(20);
-        array.add(-3);
-        array.add(-16);
-        array.add(-23);
-        array.add(18);
-        array.add(20);
-        array.add(-7);
-        array.add(12);
-        array.add(-5);
-        array.add(-22);
-        array.add(15);
-        array.add(-4);
-        array.add(7);
-        System.out.print(test.maxSubarray(array).sum);
+//        List<Integer>array = new ArrayList<Integer>();
+//        array.add(13);
+//        array.add(-3);
+//        array.add(-25);
+//        array.add(20);
+//        array.add(-3);
+//        array.add(-16);
+//        array.add(-23);
+//        array.add(18);
+//        array.add(20);
+//        array.add(-7);
+//        array.add(12);
+//        array.add(-5);
+//        array.add(-22);
+//        array.add(15);
+//        array.add(-4);
+//        array.add(7);
+//        System.out.print(test.maxSubarray(array).sum);
+
     }
 
     private static class IntegerComparator
@@ -132,6 +136,18 @@ public class AlgorithmTest {
             this.sum = sum;
         }
     }
+
+    /**
+     * 计数排序：需要提前知道数组的取值范围[0, k)，并且需要一个O(k)的临时空间和一个O(n)的排序空间，
+     *          因为计数排序无法提供原址排序，存在很大程度的缺陷
+     * @param array
+     * @return
+     */
+    public List<Integer> countSort(List<Integer> array){
+        return array;
+    }
+
+
 
 
 
