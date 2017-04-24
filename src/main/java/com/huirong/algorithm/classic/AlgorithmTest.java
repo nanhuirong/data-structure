@@ -1,5 +1,7 @@
 package com.huirong.algorithm.classic;
 
+import com.huirong.sort.IntegerComparator;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -41,13 +43,13 @@ public class AlgorithmTest {
 
     }
 
-    private static class IntegerComparator
-            implements Comparator<Integer> {
-        @Override
-        public int compare(Integer obj1, Integer obj2) {
-            return obj1.compareTo(obj2);
-        }
-    }
+//    private static class IntegerComparator
+//            implements Comparator<Integer> {
+//        @Override
+//        public int compare(Integer obj1, Integer obj2) {
+//            return obj1.compareTo(obj2);
+//        }
+//    }
 
     /**
      * 随机产生数据

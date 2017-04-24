@@ -92,13 +92,13 @@ public class SortTest {
 
     }
 
-    private static class IntegerComparator
-            implements Comparator<Integer>{
-        @Override
-        public int compare(Integer obj1, Integer obj2) {
-            return obj1.compareTo(obj2);
-        }
-    }
+//    private static class IntegerComparator
+//            implements Comparator<Integer>{
+//        @Override
+//        public int compare(Integer obj1, Integer obj2) {
+//            return obj1.compareTo(obj2);
+//        }
+//    }
 
     /**
      * 随机产生数据
