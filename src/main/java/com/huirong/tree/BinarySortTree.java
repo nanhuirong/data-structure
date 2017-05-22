@@ -344,7 +344,7 @@ public class BinarySortTree<E> {
         return comparator.compare(elem1, elem2);
     }
 
-    public class Node{
+    private class Node{
         private E value;
         private Node left;
         private Node right;

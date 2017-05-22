@@ -72,7 +72,7 @@ public class Algorithm<E> {
     }
 
     /**
-     * 在O（n）的时间复杂度内寻找第k小的数, 选择排序的变种
+     * 在O（n）的时间复杂度内寻找第k小的数, 快速排序的变种
      * @param array
      * @param k
      * @return
