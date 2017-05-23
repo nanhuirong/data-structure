@@ -238,25 +238,37 @@ public class SortImpl <E>{
 
     //分区算法的性能是快速排序性能的关键
     private int partition(List<E> array, int start, int end){
-        int left = start, right = end;
-        E elem = array.get(start);
-        while (left < right){
-            while (order(array.get(right), elem)){
-                right--;
-            }
-            if (left < right){
-                array.set(left++, array.get(right));
-                while (left < right && order(elem, array.get(left))){
-                    left++;
+//        int left = start, right = end;
+//        E elem = array.get(start);
+//        while (left < right){
+//            while (order(array.get(right), elem)){
+//                right--;
+//            }
+//            if (left < right){
+//                array.set(left++, array.get(right));
+//                while (left < right && order(elem, array.get(left))){
+//                    left++;
+//                }
+//                if (left < right){
+//                    array.set(right--, array.get(left));
+//                }
+//            }
+//
+//        }
+//        array.set(left, elem);
+//        return left;
+        int small = start - 1;
+        for (int index = start; index < end; index++){
+            if (order(array.get(end), array.get(index))){
+                ++small;
+                if (small != index){
+                    swap(array, index, small);
                 }
-                if (left < right){
-                    array.set(right--, array.get(left));
-                }
             }
-
         }
-        array.set(left, elem);
-        return left;
+        ++ small;
+        swap(array, small, end);
+        return small;
     }
     //随机选取主元
     private int randomPartition(List<E> array, int start, int end){
@@ -322,4 +334,6 @@ public class SortImpl <E>{
 //            return obj1
 //        }
 //    }
+
+
 }

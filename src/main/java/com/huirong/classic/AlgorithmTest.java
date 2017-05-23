@@ -1,11 +1,8 @@
-package com.huirong.algorithm.classic;
+package com.huirong.classic;
 
 import com.huirong.sort.IntegerComparator;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by huirong on 17-4-13.

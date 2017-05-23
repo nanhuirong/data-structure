@@ -1,4 +1,4 @@
-package com.huirong.algorithm.classic;
+package com.huirong.classic;
 
 import java.util.ArrayList;
 import java.util.Comparator;
