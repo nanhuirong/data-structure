@@ -230,5 +230,97 @@ public class AlgorithmImpl {
         }
     }
 
+    /**
+     * 20   顺时针打印矩阵
+     *    1    2    3   4
+     *    5    6    7   8
+     *    9    10   11  12
+     *    13   14   15  16
+     *    顺序：1，2， 3， 4，8，12，16，15，14，13，9，5，6，7，11，10
+     */
+    public void printMatrix(int[][] array){
+        if (array == null || array.length == 0){
+            return;
+        }
+        int rows = array.length;
+        if (array[0].length == 0){
+            return;
+        }
+        int cols = array[0].length;
+        int start = 0;
+        while (start * 2 < rows && start * 2 < cols){
+            printMatrix(array, start);
+            ++start;
+        }
+    }
+    private void printMatrix(int[][] array,int start){
+        int rows = array.length, cols = array[0].length;
+        int endX = cols - 1 - start, endY = rows - 1 - start;
+        //从左往右打印第一行
+        for (int i = start; i <= endX; i++){
+            System.out.print(array[start][i] + "\t");
+        }
+        //从上往下打印第一列
+        if (start < endY){
+            for (int i = start + 1; i <= endY; i++){
+                System.out.print(array[endX][i] + "\t");
+            }
+        }
+        //从右往左
+        if (start < endX && start < endY){
+            for (int i = endX - 1; i >= start; i--){
+                System.out.print(array[endY][i] + "\t");
+            }
+        }
+        //从下往上
+        if (start < endX && start < endY - 1){
+            for (int i = endY - 1; i >= start + 1; i--){
+                System.out.print(array[i][start] + "\t");
+            }
+        }
+    }
+
+    /**
+     * 28.字符串的排列（考虑顺序）
+     * 题目：输入一个字符串，打印出该字符串的全排列
+     * abc => abc、acb、bac、bca、cab、cba
+     * 思路：将字符串看成两部分组成，第一部分是第一个字符、第二部分是剩余所有字符
+     * 扩展：1.求字符的所有组合（不考虑顺序）
+     *         a、b、c =>    a、b、c、ab、ac、bc、abc
+     *         思路：在求n个字符长度为m(1<=m<=n)的组合时，将n个字符划分为两部分，第一个字符和其余所有字符
+     *              如果组合里包含第一个字符，就在剩余的字符里取m-1个字符（求n-1个字符长度为m-1的问题）
+     *              如果组合里不包含第一个字符，在剩余的n-1个字符里选取m个字符（求n-1个字符长度为m的符合）
+     *      2.输入8个数字，判断是否存在这种可能，使得正方体的三组相对面的4个点的和都相等
+     *         思路：先得到数组的全排列
+     *      3.在8X8的国际象棋上摆放8个皇后使其不能相互攻击，即任意两个不能位于同行同列同对角线上，共有多少种不同的摆法
+     *         思路：每个皇后肯定占据不同的行，定义一个columnIndex[8]的数组，存放每一行对应的列，
+     *              初始化为0-7，做全排列，并去掉在同一条对角线上的排列
+     *              i - j = columnIndex[i] - columnIndex[j]
+     *              j - i = columnIndex[i] - columnIndex[j]
+     *
+     */
+    public void permutation(char[] array){
+        if (array == null || array.length == 0){
+            return;
+        }
+        permutation(array, 0);
+    }
+
+    private void permutation(char[] array, int start){
+        if (start == array.length){
+            System.out.println(Arrays.toString(array));
+        }else {
+            for (int i = start; i < array.length; i++){
+                char temp = array[i];
+                array[i] = array[start];
+                array[start] = temp;
+                permutation(array, start + 1);
+                temp = array[i];
+                array[i] = array[start];
+                array[start] = temp;
+            }
+        }
+    }
+
 
 }

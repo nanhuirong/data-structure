@@ -8,13 +8,13 @@ public class Singleton {
     /**
      * 单线程解决方案
      */
-    private static Singleton instance = null;
-    public static Singleton getInstance(){
-        if (instance == null){
-            instance = new Singleton();
-        }
-        return instance;
-    }
+//    private static Singleton instance = null;
+//    public static Singleton getInstance(){
+//        if (instance == null){
+//            instance = new Singleton();
+//        }
+//        return instance;
+//    }
 
     /**
      * 多线程下加锁解决方案，双重验证
@@ -46,12 +46,12 @@ public class Singleton {
     /**
      * 需要时创建对象
      */
-//    private static class SingletonHandler{
-//        private static Singleton instance = new Singleton();
-//    }
-//    private Singleton(){
-//    }
-//    public static Singleton getInstance(){
-//        return SingletonHandler.instance;
-//    }
+    private static class SingletonHandler{
+        private static Singleton instance = new Singleton();
+    }
+    private Singleton(){
+    }
+    public static Singleton getInstance(){
+        return SingletonHandler.instance;
+    }
 }

@@ -181,9 +181,81 @@ public class MyLinkedList {
         return mergeHead;
     }
 
+    /**
+     * 26.复杂链表的复制
+     * 题目：在复杂链表中每个节点存在一个next和一个sibling指针指向任意节点或者null
+     *          _________________
+     *         ^                |
+     * A------>B------>C------>D------>E
+     * |       |       ^               ^
+     * |_______|_______|               |
+     *         |_______________________|
+     * 思路：第一步，新建链表复制每一个元素，通过next构建单链表，并创建一个hash表存放两个链表元素间的对应关系
+     *      第二步，为每一个节点寻找siliding节点，时间复杂度是O（1）
+     *
+     *      在不用辅助空间的情况下
+     *      第一步，将每一个新节点连接到原节点的后面
+     *      第二步，设置复制出来节点的siliding节点
+     *      第三步，将链表拆分出来
+     */
+    public ComplexListNode clone(ComplexListNode head){
+        cloneNodes(head);
+        connectSilidingNodes(head);
+        return reConnectNodes(head);
+    }
 
+    private void cloneNodes(ComplexListNode head){
+        ComplexListNode pointer = head;
+        while (pointer != null){
+            ComplexListNode cloneNode = new ComplexListNode(pointer.value);
+            cloneNode.next = pointer.next;
+            pointer.next = cloneNode;
+            pointer = cloneNode.next;
+        }
+    }
+    private void connectSilidingNodes(ComplexListNode head){
+        ComplexListNode pointer = head;
+        while (pointer != null){
+            ComplexListNode cloneNode = pointer.next;
+            if (pointer.silibing != null){
+                cloneNode.silibing = pointer.silibing.next;
+            }
+            pointer = cloneNode.next;
+        }
+    }
+    private ComplexListNode reConnectNodes(ComplexListNode head){
+        ComplexListNode pointer = head, cloneHead = null, clonePointer = null;
+        if (pointer != null){
+            cloneHead = pointer.next;
+            clonePointer = cloneHead;
+            pointer.next = clonePointer.next;
+            pointer = pointer.next;
+        }
+        while (pointer != null){
+            clonePointer.next = pointer.next;
+            clonePointer = clonePointer.next;
+            pointer.next = clonePointer.next;
+            pointer = pointer.next;
+        }
+        return clonePointer;
+    }
+
+
+
+
+    private class ComplexListNode{
+        int value;
+        ComplexListNode next;
+        ComplexListNode silibing;
+
+        public ComplexListNode(int value) {
+            this.value = value;
+            this.next = null;
+            this.silibing = null;
+        }
+    }
     //单向链表
-    private class Node{
+    private static class Node{
         int value;
         Node next;
 
@@ -194,29 +266,36 @@ public class MyLinkedList {
     }
 
     public static void main(String[] args){
-        MyLinkedList list = new MyLinkedList();
-        Node head = null;
-        for (int i = 0; i < 10; i++){
-            list.addTail(head, i);
-        }
-//        list.printList(head);
-//        list.reserveList(head);
+//        MyLinkedList list = new MyLinkedList();
+//        Node head = null;
+//        for (int i = 0; i < 10; i++){
+//            list.addTail(head, i);
+//        }
+////        list.printList(head);
+////        list.reserveList(head);
+////        System.out.println();
+////        list.printList(head);
+//        Node head1 = null;
+//        for (int i = 0; i < 10; i = i + 2){
+//            head1 = list.addTail(head1, i);
+//        }
+//        list.printList(head1);
 //        System.out.println();
-//        list.printList(head);
-        Node head1 = null;
-        for (int i = 0; i < 10; i = i + 2){
-            head1 = list.addTail(head1, i);
-        }
-        list.printList(head1);
-        System.out.println();
-        Node head2 = null;
-        for (int i = 1; i < 10; i = i + 2){
-            head2 = list.addTail(head2, i);
-        }
-        list.printList(head2);
-        Node head3 = list.merge(head1, head2);
-        System.out.println();
-        list.printList(head3);
+//        Node head2 = null;
+//        for (int i = 1; i < 10; i = i + 2){
+//            head2 = list.addTail(head2, i);
+//        }
+//        list.printList(head2);
+//        Node head3 = list.merge(head1, head2);
+//        System.out.println();
+//        list.printList(head3);
+        Node node = new Node(1);
+        Node next = new Node(2);
+        node.next = next;
+        System.out.println(node.hashCode() + "\t" + node.next.hashCode() + "\t" + next.hashCode());
+        Node temp = node.next;
+        node.next = new Node(3);
+        System.out.println(temp.hashCode() + "\t" + node.next.hashCode());
 
     }
 }
